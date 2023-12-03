@@ -328,7 +328,7 @@
 @code {
     private async Task PrintToPdf()
     {
-        await js.InvokeVoidAsync("printJS", "PDF_Container", "html");
+        await js.InvokeVoidAsync("printDivToPdf", "PDF_Container", "html");
     }
 }
 @code {

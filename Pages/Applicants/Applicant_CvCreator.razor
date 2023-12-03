@@ -1,0 +1,580 @@
+﻿@page "/Applicant_CvCreator"
+@using Recruitment_Angels.Models
+@using Recruitment_Angels.Pages.Components
+@inject IJSRuntime js
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="_content/Blazor.Bootstrap/blazor.bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div style="padding:20px">
+        <div class="BlockDiv">
+            <div class="Section-Header">
+                CV Creator
+            </div>
+            <div class="row-Space-BetweenCv">
+                <div class="blockPanelCv" style="width:100%">
+                    <Accordion Class="mb-3">
+                        @*================
+                        Templates
+                        ================*@
+                        <AccordionItem Title="Templates" Name="AccordionItem1">
+                            <Content>
+                                <div class="K_rowCv">
+                                    <div class="k_templateButtondivCv">
+                                        <input type="radio" id="Template1" name="rblTemplates" value="Template1" @onchange="@(() => UpdateTemplate("1"))" style="visibility:hidden">
+                                        <label for="Template1" class="templateButtonCv">
+                                            <img alt="" src="../Images/Template_Previews/Template1.png" class="@myImageClass1" />
+                                        </label>
+                                    </div>
+                                    <div class="k_templateButtondivCv">
+                                        <input type="radio" id="Template2" name="rblTemplates" value="Template2" @onchange="@(() => UpdateTemplate("2"))" style="visibility:hidden">
+                                        <label for="Template2" class="templateButtonCv">
+                                            <img alt="" src="../Images/Template_Previews/template2.png" class="@myImageClass2" />
+                                        </label>
+                                    </div>
+                                    <div class="k_templateButtondivCv">
+                                        <input type="radio" id="Template3" name="rblTemplates" value="Template3" @onchange="@(() => UpdateTemplate("3"))" style="visibility:hidden">
+                                        <label for="Template3" class="templateButtonCv">
+                                            <img alt="" src="../Images/Template_Previews/template3.png" class="@myImageClass3" />
+                                        </label>
+                                    </div>
+                                    <div class="k_templateButtondivCv">
+                                        <input type="radio" id="Template4" name="rblTemplates" value="Template4" @onchange="@(() => UpdateTemplate("4"))" style="visibility:hidden">
+                                        <label for="Template4" class="templateButtonCv">
+                                            <img alt="" src="../Images/Template_Previews/template4.png" class="@myImageClass4" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </Content>
+                        </AccordionItem>
+                        @*================
+                        PERSONAL INFO
+                        ================*@
+                        <AccordionItem Title="Personal Info" Name="FAQ">
+                            <Content>
+                                <Grid TItem="Table"
+                                      Class="table table-hover table-bordered"
+                                      DataProvider="PersonalInfoDataProvider"
+                                      AllowFiltering="false"
+                                      AllowSelection="true"
+                                      SelectionMode="GridSelectionMode.Multiple"
+                                      SelectedItemsChanged="OnSelectedItemsChangedPersonal"
+                                      PageSizeSelectorItems="@(new int[] { 5,10,20 })"
+                                      PaginationItemsTextFormat="{0} - {1} of {2} articles"
+                                      ItemsPerPageText="Articles per page"
+                                      Responsive="true">
+                                    <GridColumn TItem="Table" HeaderText="Name" PropertyName="Name">
+                                        @context.Name
+                                    </GridColumn>
+                                    <GridColumn TItem="Table" HeaderText="Surname" PropertyName="Surname">
+                                        @context.Surname
+                                    </GridColumn>
+                                </Grid>
+                            </Content>
+                        </AccordionItem>
+                        @*================
+                        Education
+                        ================*@
+                        <AccordionItem Title="Education" Name="AccordionItem2">
+                            <Content>
+                                <Grid TItem="QualificationsTable"
+                                      Class="table table-hover table-bordered"
+                                      DataProvider="QualificationsDataProvider"
+                                      AllowFiltering="false"
+                                      AllowSelection="true"
+                                      SelectionMode="GridSelectionMode.Multiple"
+                                      SelectedItemsChanged="OnSelectedItemsChangedQualification"
+                                      PageSizeSelectorItems="@(new int[] { 5,10,20 })"
+                                      PaginationItemsTextFormat="{0} - {1} of {2} articles"
+                                      ItemsPerPageText="Articles per page"
+                                      Responsive="true">
+                                    <GridColumn TItem="QualificationsTable" HeaderText="Institution" PropertyName="Institution">
+                                        @context.Institution
+                                    </GridColumn>
+                                    <GridColumn TItem="QualificationsTable" HeaderText="Institution Location" PropertyName="InstitutionLocation">
+                                        @context.InstitutionLocation
+                                    </GridColumn>
+                                    <GridColumn TItem="QualificationsTable" HeaderText="Qualification" PropertyName="Qualification">
+                                        @context.Qualification
+                                    </GridColumn>
+                                    <GridColumn TItem="QualificationsTable" HeaderText="Line Order" PropertyName="LineOrderQual">
+                                        @context.LineOrderQual
+                                    </GridColumn>
+                                    <GridColumn TItem="QualificationsTable" HeaderText="Acquired Date" PropertyName="Acquired Date">
+                                        @context.AcquiredDate
+                                    </GridColumn>
+                                    <GridColumn TItem="QualificationsTable" HeaderText="In Progress" PropertyName="InProgressEducation">
+                                        @context.InProgressEducation
+                                    </GridColumn>
+                                </Grid>
+                            </Content>
+                        </AccordionItem>
+                        @*================
+                        Skills
+                        ================*@
+                        <AccordionItem Title="Skills" Name="AccordionItem3">
+                            <Content>
+                                <Grid TItem="ApplicantSkillsTable"
+                                      Class="table table-hover table-bordered"
+                                      DataProvider="ApplicantSkillsDataProvider"
+                                      AllowFiltering="false"
+                                      AllowSelection="true"
+                                      SelectionMode="GridSelectionMode.Multiple"
+                                      SelectedItemsChanged="OnSelectedItemsChangedApplicantSkills"
+                                      PageSizeSelectorItems="@(new int[] { 5,10,20 })"
+                                      PaginationItemsTextFormat="{0} - {1} of {2} articles"
+                                      ItemsPerPageText="Articles per page"
+                                      Responsive="true">
+                                    <GridColumn TItem="ApplicantSkillsTable" HeaderText="Skill Name" PropertyName="SkillName">
+                                        @context.SkillName
+                                    </GridColumn>
+                                    <GridColumn TItem="ApplicantSkillsTable" HeaderText="Proficiency" PropertyName="proficiency">
+                                        @context.proficiency
+                                    </GridColumn>
+                                </Grid>
+                            </Content>
+                        </AccordionItem>
+                        @*================
+                        Work Experience
+                        ================*@
+                        <AccordionItem Title="Work Experience" Name="Products">
+                            <Content>
+                                <Grid TItem="WorkExperienceTable"
+                                      Class="table table-hover table-bordered"
+                                      DataProvider="ExperienceDataProvider"
+                                      AllowFiltering="false"
+                                      AllowSelection="true"
+                                      SelectionMode="GridSelectionMode.Multiple"
+                                      SelectedItemsChanged="OnSelectedItemsChangedExperience"
+                                      PageSizeSelectorItems="@(new int[] { 5,10,20 })"
+                                      PaginationItemsTextFormat="{0} - {1} of {2} articles"
+                                      ItemsPerPageText="Articles per page"
+                                      Responsive="true">
+                                    <GridColumn TItem="WorkExperienceTable" HeaderText="Position Title" PropertyName="PositionTitle">
+                                        @context.PositionTitle
+                                    </GridColumn>
+                                    <GridColumn TItem="WorkExperienceTable" HeaderText="Company Name" PropertyName="CompanyName">
+                                        @context.CompanyName
+                                    </GridColumn>
+                                    <GridColumn TItem="WorkExperienceTable" HeaderText="Company Location" PropertyName="CompanyLocation">
+                                        @context.CompanyLocation
+                                    </GridColumn>
+                                    <GridColumn TItem="WorkExperienceTable" HeaderText="Summary" PropertyName="Summary">
+                                        @context.Summary
+                                    </GridColumn>
+                                    <GridColumn TItem="WorkExperienceTable" HeaderText="Start Date" PropertyName="StartDate">
+                                        @context.StartDate
+                                    </GridColumn>
+                                    <GridColumn TItem="WorkExperienceTable" HeaderText="End Date" PropertyName="End Date">
+                                        @context.EndDate
+                                    </GridColumn>
+                                    <GridColumn TItem="WorkExperienceTable" HeaderText="Line Order" PropertyName="LineOrder">
+                                        @context.LineOrder
+                                    </GridColumn>
+                                    <GridColumn TItem="WorkExperienceTable" HeaderText="Salary" PropertyName="Salary">
+                                        @context.Salary
+                                    </GridColumn>
+                                </Grid>
+                            </Content>
+                        </AccordionItem>
+                        @*================
+                        References
+                        ================*@
+                        <AccordionItem Title="References" Name="FAQ">
+                            <Content>
+                                <Grid TItem="referenceTable"
+                                      Class="table table-hover table-bordered"
+                                      DataProvider="referenceDataProvider"
+                                      AllowFiltering="false"
+                                      AllowSelection="true"
+                                      SelectionMode="GridSelectionMode.Multiple"
+                                      SelectedItemsChanged="OnSelectedItemsChangedreference"
+                                      PageSizeSelectorItems="@(new int[] { 5,10,20 })"
+                                      PaginationItemsTextFormat="{0} - {1} of {2} articles"
+                                      ItemsPerPageText="Articles per page"
+                                      Responsive="true">
+                                    <GridColumn TItem="referenceTable" HeaderText="Name" PropertyName="Name">
+                                        @context.Name
+                                    </GridColumn>
+                                    <GridColumn TItem="referenceTable" HeaderText="Surname" PropertyName="Surname">
+                                        @context.Surname
+                                    </GridColumn>
+                                    <GridColumn TItem="referenceTable" HeaderText="Company Name" PropertyName="Company">
+                                        @context.Company
+                                    </GridColumn>
+                                    <GridColumn TItem="referenceTable" HeaderText="Position" PropertyName="Position">
+                                        @context.Position
+                                    </GridColumn>
+                                    <GridColumn TItem="referenceTable" HeaderText="Phone" PropertyName="Phone">
+                                        @context.Phone
+                                    </GridColumn>
+                                    <GridColumn TItem="referenceTable" HeaderText="Email" PropertyName="Email">
+                                        @context.Email
+                                    </GridColumn>
+                                </Grid>
+                            </Content>
+                        </AccordionItem>
+                    </Accordion>
+                </div>
+                <div class="blockPanelCv">
+                    <div id="PDF_Container" class="PdfContainerCv">
+                        @if (showInitialComponent)
+                        {
+                            <p>No Template Selected</p>
+                        }
+                        @if (showComponentTemp1)
+                        {
+                            <CmptTemplate1 SelectedWorkExperience="@selectedWorkExperience" SelectedQualifications="@selectedQualifications" SelectedApplicantSkills="@selectedApplicantSkills" SelectedReferences="@selectedreferences" Personalinfo="@selectedPersonalInfo"></CmptTemplate1>
+                        }
+                        @if (showComponentTemp2)
+                        {
+                            <CmptTemplate2 SelectedWorkExperience="@selectedWorkExperience" SelectedQualifications="@selectedQualifications" SelectedApplicantSkills="@selectedApplicantSkills" SelectedReferences="@selectedreferences" Personalinfo="@selectedPersonalInfo"></CmptTemplate2>
+                        }
+                        @if (showComponentTemp3)
+                        {
+                            <CmptTemplate3 SelectedWorkExperience="@selectedWorkExperience" SelectedQualifications="@selectedQualifications" SelectedApplicantSkills="@selectedApplicantSkills" SelectedReferences="@selectedreferences" Personalinfo="@selectedPersonalInfo"></CmptTemplate3>
+                        }
+                        @if (showComponentTemp4)
+                        {
+                            <CmptTemplate4 SelectedWorkExperience="@selectedWorkExperience" SelectedQualifications="@selectedQualifications" SelectedApplicantSkills="@selectedApplicantSkills" SelectedReferences="@selectedreferences" Personalinfo="@selectedPersonalInfo"></CmptTemplate4>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="mt-3">
+                    Selected Items Count: @selectedWorkExperience.Count
+                </div>
+
+                <div class="mt-2">
+                    Selected WorkExperience:
+                    <ul>
+                        @foreach (var emp in selectedWorkExperience)
+                        {
+                            <li>@emp.PositionTitle</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="mt-3">
+                    Selected Items Count: @selectedQualifications.Count
+                </div>
+
+                <div class="mt-2">
+                    Selected Qualifications:
+                    <ul>
+                        @foreach (var emp in selectedQualifications)
+                        {
+                            <li>@emp.Institution @emp.InstitutionLocation @emp.Qualification @emp.LineOrderQual @emp.AcquiredDate</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="mt-3">
+                    Selected Items Count: @selectedreferences.Count
+                </div>
+
+                <div class="mt-2">
+                    Selected references:
+                    <ul>
+                        @foreach (var emp in selectedreferences)
+                        {
+                            <li>@emp.Name </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="mt-3">
+                    Selected Items Count: @selectedApplicantSkills.Count
+                </div>
+
+                <div class="mt-2">
+                    Selected Skilles:
+                    <ul>
+                        @foreach (var emp in selectedApplicantSkills)
+                        {
+                            <li>@emp.SkillName </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="mt-3">
+                    Selected Items Count: @selectedPersonalInfo.Count
+                </div>
+
+                <div class="mt-2">
+                    Selected personalinfo:
+                    <ul>
+                        @foreach (var emp in selectedPersonalInfo)
+                        {
+                            <li>@emp.Name </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divToPrint">
+        <h1>Hello, PDF!</h1>
+    </div>
+    <button @onclick="PrintToPdf">Print to PDF</button>
+</body>
+@code {
+    private async Task PrintToPdf()
+    {
+        await js.InvokeVoidAsync("printJS", "PDF_Container", "html");
+    }
+}
+@code {
+    @*================
+    Templates
+    ================*@
+    string myImageClass1 { get; set; }
+    string myImageClass2 { get; set; }
+    string myImageClass3 { get; set; }
+    string myImageClass4 { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        myImageClass1 = "templateButtonImageCv";
+        myImageClass2 = "templateButtonImageCv";
+        myImageClass3 = "templateButtonImageCv";
+        myImageClass4 = "templateButtonImageCv";
+    }
+    public void UpdateTemplate(string TemplateNumber)
+    {
+        if (TemplateNumber == "1")
+        {
+            myImageClass1 = "templateButtonImageCvSelected";
+            myImageClass2 = "templateButtonImageCv";
+            myImageClass3 = "templateButtonImageCv";
+            myImageClass4 = "templateButtonImageCv";
+        }
+        else if (TemplateNumber == "2")
+        {
+            myImageClass1 = "templateButtonImageCv";
+            myImageClass2 = "templateButtonImageCvSelected";
+            myImageClass3 = "templateButtonImageCv";
+            myImageClass4 = "templateButtonImageCv";
+        }
+        else if (TemplateNumber == "3")
+        {
+            myImageClass1 = "templateButtonImageCv";
+            myImageClass2 = "templateButtonImageCv";
+            myImageClass3 = "templateButtonImageCvSelected";
+            myImageClass4 = "templateButtonImageCv";
+        }
+        else if (TemplateNumber == "4")
+        {
+            myImageClass1 = "templateButtonImageCv";
+            myImageClass2 = "templateButtonImageCv";
+            myImageClass3 = "templateButtonImageCv";
+            myImageClass4 = "templateButtonImageCvSelected";
+        }
+        else
+        {
+            myImageClass1 = "templateButtonImageCv";
+            myImageClass2 = "templateButtonImageCv";
+            myImageClass3 = "templateButtonImageCv";
+            myImageClass4 = "templateButtonImageCv";
+        }
+        ChangeTemplate(TemplateNumber);
+    }
+    @*================
+    Education
+    ================*@
+    private IEnumerable<QualificationsTable> Qualifications = default!;
+    private HashSet<QualificationsTable> selectedQualifications = new();
+    private async Task<GridDataProviderResult<QualificationsTable>> QualificationsDataProvider(GridDataProviderRequest<QualificationsTable> request)
+    {
+        Console.WriteLine("QualificationsDataProvider called...");
+        if (Qualifications is null)
+            Qualifications = GetQualificationsTable();
+        return await Task.FromResult(request.ApplyTo(Qualifications));
+    }
+    private IEnumerable<QualificationsTable> GetQualificationsTable()
+    {
+        return new List<QualificationsTable>
+        {
+            new QualificationsTable { Institution = "UNISA", InstitutionLocation = "Online", Qualification = "Bsc Eng", LineOrderQual = 1,  AcquiredDate = DateTime.Now,InProgressEducation= true },
+            new QualificationsTable { Institution = "UNISA", InstitutionLocation = "Online", Qualification = "Bsc Maths", LineOrderQual = 1,  AcquiredDate = DateTime.Now,InProgressEducation= true },
+            new QualificationsTable { Institution = "UNISA", InstitutionLocation = "Online", Qualification = "Bsc Afr", LineOrderQual = 1,  AcquiredDate = DateTime.Now,InProgressEducation= true },
+            new QualificationsTable { Institution = "UNISA", InstitutionLocation = "Online", Qualification = "Bsc Comp", LineOrderQual = 1,  AcquiredDate = DateTime.Now,InProgressEducation= true },
+            new QualificationsTable { Institution = "UNISA", InstitutionLocation = "Online", Qualification = "Bsc Science", LineOrderQual = 1,  AcquiredDate = DateTime.Now,InProgressEducation= true },
+            new QualificationsTable { Institution = "UNISA", InstitutionLocation = "Online", Qualification = "Bsc 1", LineOrderQual = 1,  AcquiredDate = DateTime.Now,InProgressEducation= true },
+            new QualificationsTable { Institution = "UNISA", InstitutionLocation = "Online", Qualification = "Bsc 2", LineOrderQual = 1,  AcquiredDate = DateTime.Now,InProgressEducation= true },
+            new QualificationsTable { Institution = "UNISA", InstitutionLocation = "Online", Qualification = "Bsc 3", LineOrderQual = 1,  AcquiredDate = DateTime.Now,InProgressEducation= true },
+            new QualificationsTable { Institution = "UNISA", InstitutionLocation = "Online", Qualification = "Bsc 4", LineOrderQual = 1,  AcquiredDate = DateTime.Now,InProgressEducation= true },
+        };
+    }
+    private Task OnSelectedItemsChangedQualification(HashSet<QualificationsTable> Qualifications)
+    {
+        selectedQualifications = Qualifications is not null && Qualifications.Any() ? Qualifications : new();
+        return Task.CompletedTask;
+    }
+    @*================
+    Skills
+    ================*@
+    private IEnumerable<ApplicantSkillsTable> ApplicantSkills = default!;
+    private HashSet<ApplicantSkillsTable> selectedApplicantSkills = new();
+    private async Task<GridDataProviderResult<ApplicantSkillsTable>> ApplicantSkillsDataProvider(GridDataProviderRequest<ApplicantSkillsTable> request)
+    {
+        Console.WriteLine("ApplicantSkillsDataProvider called...");
+        if (ApplicantSkills is null)
+            ApplicantSkills = GetApplicantSkillsTable();
+        return await Task.FromResult(request.ApplyTo(ApplicantSkills));
+    }
+    private IEnumerable<ApplicantSkillsTable> GetApplicantSkillsTable()
+    {
+        return new List<ApplicantSkillsTable>
+        {
+            new ApplicantSkillsTable { SkillName = "HTML", proficiency = 25 },
+            new ApplicantSkillsTable { SkillName = "CSS", proficiency = 50 },
+            new ApplicantSkillsTable { SkillName = "Java", proficiency = 75 },
+            new ApplicantSkillsTable { SkillName = ".NET", proficiency = 100 },
+            new ApplicantSkillsTable { SkillName = ".CORE", proficiency = 25 },
+            new ApplicantSkillsTable { SkillName = "C#", proficiency = 50 },
+            new ApplicantSkillsTable { SkillName = "C++", proficiency = 75 },
+            new ApplicantSkillsTable { SkillName = "VB", proficiency = 100 },
+            new ApplicantSkillsTable { SkillName = "Python", proficiency = 25 },
+        };
+    }
+    private Task OnSelectedItemsChangedApplicantSkills(HashSet<ApplicantSkillsTable> ApplicantSkills)
+    {
+        selectedApplicantSkills = ApplicantSkills is not null && ApplicantSkills.Any() ? ApplicantSkills : new();
+        return Task.CompletedTask;
+    }
+    @*================
+    Work Experience
+    ================*@
+    private IEnumerable<WorkExperienceTable> WorkExperience = default!;
+    private HashSet<WorkExperienceTable> selectedWorkExperience = new();
+    private async Task<GridDataProviderResult<WorkExperienceTable>> ExperienceDataProvider(GridDataProviderRequest<WorkExperienceTable> request)
+    {
+        Console.WriteLine("ExperienceDataProvider called...");
+        if (WorkExperience is null)
+            WorkExperience = GetWorkExperienceTable();
+        return await Task.FromResult(request.ApplyTo(WorkExperience));
+    }
+    private IEnumerable<WorkExperienceTable> GetWorkExperienceTable()
+    {
+        return new List<WorkExperienceTable>
+        {
+            new WorkExperienceTable { PositionTitle = "Software Developer", CompanyName = "NASA", CompanyLocation = "South Africa", Summary = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", StartDate = DateTime.Now,EndDate= DateTime.Now ,LineOrder=1, Salary=""},
+            new WorkExperienceTable { PositionTitle = "Software Developer", CompanyName = "Microsoft Corp", CompanyLocation = "South Africa", Summary = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", StartDate = DateTime.Now,EndDate= DateTime.Now ,LineOrder=2, Salary=""},
+            new WorkExperienceTable { PositionTitle = "Software Developer", CompanyName = "Oracle Corp", CompanyLocation = "South Africa", Summary = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", StartDate = DateTime.Now,EndDate= DateTime.Now ,LineOrder=3, Salary=""},
+            new WorkExperienceTable { PositionTitle = "Software Developer", CompanyName = "SAP SE", CompanyLocation = "South Africa", Summary = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", StartDate = DateTime.Now,EndDate= DateTime.Now ,LineOrder=4, Salary=""},
+            new WorkExperienceTable { PositionTitle = "Software Developer", CompanyName = "Salesforce", CompanyLocation = "South Africa", Summary = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", StartDate = DateTime.Now,EndDate= DateTime.Now ,LineOrder=5, Salary=""},
+            new WorkExperienceTable { PositionTitle = "Software Developer", CompanyName = "Adobe ", CompanyLocation = "South Africa", Summary = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", StartDate = DateTime.Now,EndDate= DateTime.Now ,LineOrder=6, Salary=""},
+            new WorkExperienceTable { PositionTitle = "Software Developer", CompanyName = "Block ", CompanyLocation = "South Africa", Summary = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", StartDate = DateTime.Now,EndDate= DateTime.Now ,LineOrder=7, Salary=""},
+            new WorkExperienceTable { PositionTitle = "Software Developer", CompanyName = "Intuit ", CompanyLocation = "South Africa", Summary = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", StartDate = DateTime.Now,EndDate= DateTime.Now ,LineOrder=8, Salary=""},
+            new WorkExperienceTable { PositionTitle = "Software Developer", CompanyName = "VMware ", CompanyLocation = "South Africa", Summary = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", StartDate = DateTime.Now,EndDate= DateTime.Now ,LineOrder=9, Salary=""},
+        };
+    }
+    private Task OnSelectedItemsChangedExperience(HashSet<WorkExperienceTable> Experience)
+    {
+        selectedWorkExperience = Experience is not null && Experience.Any() ? Experience : new();
+        return Task.CompletedTask;
+    }
+    @*================
+    References
+    ================*@
+    private IEnumerable<referenceTable> reference = default!;
+    private HashSet<referenceTable> selectedreferences = new();
+    private async Task<GridDataProviderResult<referenceTable>> referenceDataProvider(GridDataProviderRequest<referenceTable> request)
+    {
+        Console.WriteLine("referenceDataProvider called...");
+        if (reference is null)
+            reference = GetReferenceTable();
+        return await Task.FromResult(request.ApplyTo(reference));
+    }
+    private IEnumerable<referenceTable> GetReferenceTable()
+    {
+        return new List<referenceTable>
+        {
+            new referenceTable { Name = "Pieter", Surname = "Jacobs", Company = "NASA", Position = "CEO",  Phone = "000 000 0000",Email= "Email@email.com" },
+            new referenceTable { Name = "Sannie", Surname = "Jatters", Company = "Facebook", Position = "CEO",  Phone = "000 000 0000",Email= "Email@email.com" },
+            new referenceTable { Name = "Jaco", Surname = "Buyers", Company = "Sebrus", Position = "CEO",  Phone = "000 000 0000",Email= "Email@email.com" },
+            new referenceTable { Name = "Alna", Surname = "Walker", Company = "Alien Ware", Position = "CEO",  Phone = "000 000 0000",Email= "Email@email.com" },
+            new referenceTable { Name = "Jeff", Surname = "Belzer", Company = "IT", Position = "CEO",  Phone = "000 000 0000",Email= "Email@email.com" },
+            new referenceTable { Name = "Tian", Surname = "Tinter", Company = "Comps", Position = "CEO",  Phone = "000 000 0000",Email= "Email@email.com" },
+            new referenceTable { Name = "Korina", Surname = "Villian", Company = "Company", Position = "CEO",  Phone = "000 000 0000",Email= "Email@email.com" },
+            new referenceTable { Name = "Kian", Surname = "Dieter", Company = "KR", Position = "CEO",  Phone = "000 000 0000",Email= "Email@email.com" },
+            new referenceTable { Name = "Alan", Surname = "Walker", Company = "Best Tech", Position = "CEO",  Phone = "000 000 0000",Email= "Email@email.com" },
+        };
+    }
+    private Task OnSelectedItemsChangedreference(HashSet<referenceTable> references)
+    {
+        selectedreferences = references is not null && references.Any() ? references : new();
+        return Task.CompletedTask;
+    }
+    @*================
+    PERSONAL INFO
+    ================*@
+    private IEnumerable<Table> PersonalInfo = default!;
+    private HashSet<Table> selectedPersonalInfo = new();
+    private async Task<GridDataProviderResult<Table>> PersonalInfoDataProvider(GridDataProviderRequest<Table> request)
+    {
+        Console.WriteLine("PersonalInfoDataProvider called...");
+        if (PersonalInfo is null)
+            PersonalInfo = GetPersonalInfoTable();
+        return await Task.FromResult(request.ApplyTo(PersonalInfo));
+    }
+    private IEnumerable<Table> GetPersonalInfoTable()
+    {
+        return new List<Table>
+    {
+        new Table { UserID = 0, Name = "Name", Surname = "Surname", Email = "Email@email.com", altEmail = "Email@email.com", PhoneNumber = "000 000 0000", altPhoneNumber = "000 000 0000", DOB = "DD/MM/YYYY", PhotoPath = "", Status = 1, DateApplied = DateTime.Now, CandidateDescription = "Lorem ipsum dolor sit amet. Id perferendis possimus aut galisum dolore et nihil rerum. Sed impedit quasi ut omnis mollitia non sapiente unde quo ipsam consequatur et distinctio sapiente aut maiores necessitatibus. Nam omnis nemo quo delectus rerum qui repellendus nisi.", Sector = 2, JobTitle = "Software Developer", AcademicLevel = "Bachelors", MinimumSalary = "", LineOrder = 1 }
+    };
+    }
+    private Task OnSelectedItemsChangedPersonal(HashSet<Table> references)
+    {
+        selectedPersonalInfo = references is not null && references.Any() ? references : new();
+        return Task.CompletedTask;
+    }
+    @*================
+    CV Functions
+    ================*@
+    private bool showInitialComponent = true;
+    private bool showComponentTemp1 = false;
+    private bool showComponentTemp2 = false;
+    private bool showComponentTemp3 = false;
+    private bool showComponentTemp4 = false;
+    private void ChangeTemplate(string template)
+    {
+        showInitialComponent = false;
+        if (template == "1")
+        {
+            showComponentTemp1 = true;
+            showComponentTemp2 = false;
+            showComponentTemp3 = false;
+            showComponentTemp4 = false;
+        }
+        if (template == "2")
+        {
+            showComponentTemp1 = false;
+            showComponentTemp2 = true;
+            showComponentTemp3 = false;
+            showComponentTemp4 = false;
+        }
+        if (template == "3")
+        {
+            showComponentTemp1 = false;
+            showComponentTemp2 = false;
+            showComponentTemp3 = true;
+            showComponentTemp4 = false;
+        }
+        if (template == "4")
+        {
+            showComponentTemp1 = false;
+            showComponentTemp2 = false;
+            showComponentTemp3 = false;
+            showComponentTemp4 = true;
+        }
+    }
+}

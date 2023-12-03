@@ -1,0 +1,192 @@
+﻿@page "/CmptTemplate2"
+
+@using Recruitment_Angels.Models
+@code {
+    [Parameter]
+    public HashSet<WorkExperienceTable> SelectedWorkExperience { get; set; }
+
+    [Parameter]
+    public HashSet<QualificationsTable> SelectedQualifications { get; set; }
+    [Parameter]
+    public HashSet<ApplicantSkillsTable> SelectedApplicantSkills { get; set; }
+    [Parameter]
+    public HashSet<referenceTable> SelectedReferences { get; set; }
+    [Parameter]
+    public HashSet<Table> Personalinfo { get; set; }
+}
+<div style="height:100%;width:100%">
+    <div style="display: flex;width:100%;height:100%">
+        @*===================
+        LEFT SIDE
+        ===================*@
+        <div style="width:55%;">
+            @*===================
+            NAME AND SURNAME
+            ===================*@
+            <div style="display: flex; align-items: center; justify-content: center;margin-top: calc(5vh + 5%); background-color:#d2d3d7">
+                <div style="width: 100%; overflow: hidden;">
+                    @if (Personalinfo.Count > 0)
+                    {
+                        <div style="padding-bottom: calc(2vh + 5%);padding-left:calc(2vh + 5%); ">
+                            <div style="padding-top: calc(2vh + 5%);">
+                                <div style="font-size: calc(3vh + 4%); overflow: hidden; height: calc(1.5vh + 4%); text-align: left; color:#222340;font-weight:bold;  line-height: calc(3vh + 4%) ">
+                                    @if (Personalinfo.Count > 0)
+                                    {
+                                        var firstRows = Personalinfo.FirstOrDefault();
+                                        @firstRows.Name
+                                    }
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size: calc(3vh + 4%); overflow: hidden; height: calc(1.5vh + 4%); text-align: left; color:#222340; font-weight:bold; line-height: calc(3vh + 4%)">
+                                    @if (Personalinfo.Count > 0)
+                                    {
+                                        var firstRows = Personalinfo.FirstOrDefault();
+                                        @firstRows.Surname
+                                    }
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size: calc(2vh + 4%); overflow: hidden; height: calc(1.5vh + 4%); text-align: left; color:#222340">
+                                    @if (Personalinfo.Count > 0)
+                                    {
+                                        var firstRows = Personalinfo.FirstOrDefault();
+                                        @firstRows.JobTitle
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div style="width:100%; padding-left:calc(1vh + 2%);padding-right:calc(2vh + 2%)">
+                @*===================
+                WORK EXPERIENCE
+                ===================*@
+                @if (SelectedWorkExperience.Count > 0)
+                {
+                    <div style="display: flex; align-items: center; justify-content: center; padding-top: calc(1vh + 5%);">
+                        <div style="width: 100%; font-size: calc(1.4vh + 5%);font-weight:bold; overflow: hidden; height: calc(5vh + 5%); color: #222340;border-bottom: 1px solid #222340; text-align: left; font-weight:bold; font-family: 'Arial', sans-serif; font-variant: small-caps; ">
+                            EXPERIENCE
+                        </div>
+                    </div>
+                    @foreach (var qual in SelectedWorkExperience)
+                    {
+                        <div style="display: flex; align-items: center; justify-content: center; padding-top: calc(0.5vh + 2%);">
+                            <div style="width: 100%; font-size: calc(0.9vh + 4%); overflow: hidden; height: calc(1.5vh + 4%); text-align: left; font-weight: bold;margin: 0 auto;">
+                                <div style="display: flex;width:100%;justify-content:space-between">
+                                    <div style="width:30%;font-weight: 800 !important;">
+                                        @((qual.StartDate).ToString("yyyy")) - @((qual.EndDate).ToString("yyyy"))
+                                    </div>
+                                    <div style="width:70%">
+                                        <div style="font-weight: 800 !important;">
+                                            @qual.PositionTitle at @qual.CompanyName
+                                        </div>
+                                        @qual.Summary <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                @*===================
+                EDUCATION
+                ===================*@
+                @if (SelectedQualifications.Count > 0)
+                {
+                    <div style="display: flex; align-items: center; justify-content: center; padding-top: calc(1vh + 5%);">
+                        <div style="width: 100%; font-size: calc(1.4vh + 5%);font-weight:bold; overflow: hidden; height: calc(5vh + 5%); color: #222340;border-bottom: 1px solid #222340; text-align: left; font-weight:bold; font-family: 'Arial', sans-serif; font-variant: small-caps; ">
+                            Education
+                        </div>
+                    </div>
+                    @foreach (var qual in SelectedQualifications)
+                    {
+                        <div style="display: flex; align-items: center; justify-content: center; padding-top: calc(0.5vh + 2%);">
+                            <div style="width: 100%; font-size: calc(0.9vh + 4%); overflow: hidden; height: calc(1.5vh + 4%); text-align: left; font-weight: bold;margin: 0 auto;">
+                                <div style="display: flex;width:100%;justify-content:space-between">
+                                    <div style="width:30%;font-weight: 800 !important;">
+                                        @((qual.AcquiredDate).ToString("yyyy-MM-dd"))
+                                    </div>
+                                    <div style="width:70%">
+                                        <div style="font-weight: 800 !important;">
+                                            @qual.Institution <br />
+                                        </div>
+                                        @qual.Qualification  <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        @*===================
+        RIGHT BAR
+        ===================*@
+        <div style="background-color:#222340;height:100%;width:40%;">
+            <div style="display: flex; align-items: center; justify-content: center;padding-top: calc(5vh + 5%);">
+                <div style="width: 70%; border-radius: 50%; overflow: hidden;">
+                    <img src="../Images/user.png" alt="Your Image" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </div>
+            @*===================
+            CONTACT ME
+            ===================*@
+            @if (Personalinfo.Count > 0)
+            {
+                <div style="display: flex; align-items: center; justify-content: center; padding-top: calc(7vh + 5%);">
+                    <div style="width: 75%; font-size: calc(1.5vh + 5%); overflow: hidden; height: calc(5vh + 5%); color: white;border-bottom: 1px solid white; text-align: center; font-weight:bold; font-family: 'Arial', sans-serif; font-variant: small-caps; ">
+                        CONTACT ME
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; padding-top: calc(0.5vh + 2%);">
+                    <div style="width: 75%; font-size: calc(1.2vh + 4%); overflow: hidden; height: calc(1.5vh + 4%); color: white; text-align: left; font-weight: bold;margin: 0 auto; text-align: center;">
+                        @if (Personalinfo.Count > 0)
+                        {
+                            var firstRows = Personalinfo.FirstOrDefault();
+                            <strong>Phone</strong>
+
+                            <br />
+                            @firstRows.PhoneNumber
+                        }
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: center; padding-top: calc(0.5vh + 2%);">
+                    <div style="width: 75%; font-size: calc(1.2vh + 4%); overflow: hidden; height: calc(1.5vh + 4%); color: white; text-align: left; font-weight: bold;margin: 0 auto;  text-align: center;">
+                        @if (Personalinfo.Count > 0)
+                        {
+                            var firstRows = Personalinfo.FirstOrDefault();
+                            <strong>Email</strong> <br />
+                            @firstRows.Email
+                        }
+                    </div>
+                </div>
+            }
+
+            @*===================
+            SKILLS
+            ===================*@
+            @if (SelectedApplicantSkills.Count > 0)
+            {
+                <div style="display: flex; align-items: center; justify-content: center; padding-top: calc(5vh + 5%);padding-bottom: calc(1vh + 5%)">
+                    <div style="width: 75%; font-size: calc(1.5vh + 5%); overflow: hidden; height: calc(5vh + 5%); color: white;border-bottom: 1px solid white; text-align: center; font-weight:bold; font-family: 'Arial', sans-serif; font-variant: small-caps; ">
+                        PRO SKILLS
+                    </div>
+                </div>
+                @foreach (var qual in SelectedApplicantSkills)
+                {
+                    <div style="display: flex; align-items: center; justify-content: center;">
+                        <div style="width: 70%; font-size: calc(1.2vh + 4%); overflow: hidden; height: calc(1.5vh + 4%); color: white; text-align: left; font-weight: bold;margin: 0 auto; text-align: center;">
+                            @qual.SkillName
+                            <Progress Class="mb-3" Height="5">
+                                <ProgressBar Color="ProgressColor.Info" Width="@qual.proficiency" />
+                            </Progress>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div style="height:100%;width:5%;">
+        </div>
+    </div>
+</div>

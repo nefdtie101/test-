@@ -1,0 +1,12 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+
+<h1>Redirect Page</h1>
+
+<p>Redirecting to Default Page</p>
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        NavigationManager.NavigateTo("Applicant_CvCreator");
+    }
+}

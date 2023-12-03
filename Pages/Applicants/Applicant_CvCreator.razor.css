@@ -1,0 +1,87 @@
+﻿.PdfContainerCv {
+    height: 80vh;
+    width: calc(80vh * 0.707);
+    border: 1px solid black;
+}
+.row-Space-BetweenCv {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.blockPanelCv {
+    width: calc(50% - 10px); 
+}
+
+@media screen and (max-width: 768px) {
+    .row-Space-BetweenCv {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .blockPanelCv {
+        width: 100%;
+        margin-bottom: 10px; 
+    }
+}
+.blockPanelCv {
+    box-shadow: 2px 2px 3px #BFBFBF;
+    border: thin solid #F2F2F2;
+    padding: 10px;
+    background-color: #FFFFFF;
+    margin: 10px;
+}
+.blockPanelCv {
+    box-shadow: 2px 2px 3px #BFBFBF;
+    border: thin solid #F2F2F2;
+    padding: 10px;
+    background-color: #FFFFFF;
+    margin: 10px;
+}
+    .K_rowCv {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .k_templateButtondivCv {
+        width: 23%;
+    }
+
+    /* Add a media query to adjust the layout on smaller screens */
+    @media screen and (max-width: 768px) {
+        .K_rowCv {
+            justify-content: center;
+        }
+
+        .k_templateButtondivCv {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+.templateButtonCv {
+    width: 100%;
+}
+.templateButtonImageCv {
+    width: 100%;
+    border: thin solid black;
+}
+.templateButtonImageCvSelected {
+    width: 100%;
+    border: thick solid black;
+}
+@media print {
+    body * {
+        display: none;
+    }
+
+    #printable-content {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+

@@ -1,0 +1,81 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" />
+    <Compile Include="obj\Debug\net7.0\Recruitment_Angels.AssemblyInfo.cs" />
+    <Compile Include="obj\Debug\net7.0\Recruitment_Angels.GlobalUsings.g.cs" />
+    <Compile Include="obj\Debug\net7.0\Recruitment_Angels.RazorAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="bin\Debug\net7.0\appsettings.Development.json" />
+    <Content Include="bin\Debug\net7.0\appsettings.json" />
+    <Content Include="bin\Debug\net7.0\Recruitment_Angels.deps.json" />
+    <Content Include="bin\Debug\net7.0\Recruitment_Angels.runtimeconfig.json" />
+    <Content Include="bin\Debug\net7.0\Recruitment_Angels.staticwebassets.runtime.json" />
+    <Content Include="obj\Debug\net7.0\project.razor.vs.json" />
+    <Content Include="obj\Debug\net7.0\Recruitment_Angels.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\net7.0\scopedcss\bundle\Recruitment_Angels.styles.css" />
+    <Content Include="obj\Debug\net7.0\scopedcss\Pages\Applicants\Applicant_CvCreator.razor.rz.scp.css" />
+    <Content Include="obj\Debug\net7.0\scopedcss\Pages\Components\CmptTemplate1.razor.rz.scp.css" />
+    <Content Include="obj\Debug\net7.0\scopedcss\Pages\Components\CmptTemplate2.razor.rz.scp.css" />
+    <Content Include="obj\Debug\net7.0\scopedcss\Pages\Components\CmptTemplate3.razor.rz.scp.css" />
+    <Content Include="obj\Debug\net7.0\scopedcss\Pages\Components\CmptTemplate4.razor.rz.scp.css" />
+    <Content Include="obj\Debug\net7.0\scopedcss\projectbundle\Recruitment_Angels.bundle.scp.css" />
+    <Content Include="obj\Debug\net7.0\scopedcss\Shared\MainLayout.razor.rz.scp.css" />
+    <Content Include="obj\Debug\net7.0\scopedcss\Shared\NavMenu.razor.rz.scp.css" />
+    <Content Include="obj\Debug\net7.0\staticwebassets.build.json" />
+    <Content Include="obj\Debug\net7.0\staticwebassets.development.json" />
+    <Content Include="obj\Debug\net7.0\staticwebassets.pack.json" />
+    <Content Include="obj\project.assets.json" />
+    <Content Include="obj\Recruitment_Angels.csproj.nuget.dgspec.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazor.Bootstrap" Version="1.10.4" />
+    <PackageReference Include="HtmlRenderer.PdfSharp" Version="1.5.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net7.0\BlazorBootstrap.dll" />
+    <None Include="bin\Debug\net7.0\de\PdfSharp.Charting.resources.dll" />
+    <None Include="bin\Debug\net7.0\de\PdfSharp.resources.dll" />
+    <None Include="bin\Debug\net7.0\HtmlRenderer.dll" />
+    <None Include="bin\Debug\net7.0\HtmlRenderer.PdfSharp.dll" />
+    <None Include="bin\Debug\net7.0\PdfSharp.Charting.dll" />
+    <None Include="bin\Debug\net7.0\PdfSharp.dll" />
+    <None Include="bin\Debug\net7.0\Recruitment_Angels.dll" />
+    <None Include="bin\Debug\net7.0\Recruitment_Angels.exe" />
+    <None Include="bin\Debug\net7.0\Recruitment_Angels.pdb" />
+    <None Include="obj\Debug\net7.0\apphost.exe" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.assets.cache" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.csproj.AssemblyReference.cache" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.csproj.BuildWithSkipAnalyzers" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.csproj.CopyComplete" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.dll" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.GeneratedMSBuildEditorConfig.editorconfig" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.genruntimeconfig.cache" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.MvcApplicationPartsAssemblyInfo.cache" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.pdb" />
+    <None Include="obj\Debug\net7.0\Recruitment_Angels.RazorAssemblyInfo.cache" />
+    <None Include="obj\Debug\net7.0\refint\Recruitment_Angels.dll" />
+    <None Include="obj\Debug\net7.0\ref\Recruitment_Angels.dll" />
+    <None Include="obj\Debug\net7.0\staticwebassets\msbuild.build.Recruitment_Angels.props" />
+    <None Include="obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Recruitment_Angels.props" />
+    <None Include="obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.Recruitment_Angels.props" />
+    <None Include="obj\Debug\net7.0\staticwebassets\msbuild.Recruitment_Angels.Microsoft.AspNetCore.StaticWebAssets.props" />
+    <None Include="obj\Debug\net7.0\_IsIncrementalBuild" />
+    <None Include="obj\project.nuget.cache" />
+    <None Include="obj\Recruitment_Angels.csproj.nuget.g.props" />
+    <None Include="obj\Recruitment_Angels.csproj.nuget.g.targets" />
+  </ItemGroup>
+
+</Project>
